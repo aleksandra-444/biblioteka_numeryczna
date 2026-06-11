@@ -1,0 +1,9 @@
+/Users/dominik/programowanie/studia/Metody Numeryczne /biblioteka_numeryczna/build/CMakeFiles/numeryczna.dir
+/Users/dominik/programowanie/studia/Metody Numeryczne /biblioteka_numeryczna/build/CMakeFiles/test_approximation.dir
+/Users/dominik/programowanie/studia/Metody Numeryczne /biblioteka_numeryczna/build/CMakeFiles/test_intergration.dir
+/Users/dominik/programowanie/studia/Metody Numeryczne /biblioteka_numeryczna/build/CMakeFiles/test_interpolation.dir
+/Users/dominik/programowanie/studia/Metody Numeryczne /biblioteka_numeryczna/build/CMakeFiles/test_linear_systems.dir
+/Users/dominik/programowanie/studia/Metody Numeryczne /biblioteka_numeryczna/build/CMakeFiles/test_nonlinear.dir
+/Users/dominik/programowanie/studia/Metody Numeryczne /biblioteka_numeryczna/build/CMakeFiles/test_ode.dir
+/Users/dominik/programowanie/studia/Metody Numeryczne /biblioteka_numeryczna/build/CMakeFiles/edit_cache.dir
+/Users/dominik/programowanie/studia/Metody Numeryczne /biblioteka_numeryczna/build/CMakeFiles/rebuild_cache.dir

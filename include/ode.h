@@ -8,7 +8,7 @@
  *
  * Example:
  *   // Cooling law: dT/dt = -alpha*(T^4 - beta)
- *   auto f = [](double T, double /*t*/){ return -3e-12 * (T * T * T * T); };
+ *   auto f = [](double T, double t){ return -3e-12 * (T * T * T * T); };
  *double T_end = euler_step_n(f, 5903.0, 5903.0, 10000);
  */
 

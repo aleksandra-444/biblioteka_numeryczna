@@ -1,0 +1,2 @@
+/Library/Developer/CommandLineTools/usr/bin/ar qc libnumeryczna.a CMakeFiles/numeryczna.dir/src/approximation.cpp.o CMakeFiles/numeryczna.dir/src/integration.cpp.o CMakeFiles/numeryczna.dir/src/interpolation.cpp.o CMakeFiles/numeryczna.dir/src/linear_systems.cpp.o CMakeFiles/numeryczna.dir/src/nonlinear.cpp.o CMakeFiles/numeryczna.dir/src/ode.cpp.o
+/Library/Developer/CommandLineTools/usr/bin/ranlib libnumeryczna.a
