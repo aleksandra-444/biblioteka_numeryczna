@@ -15,8 +15,8 @@
 #include <iomanip>
 #include <cmath>
 #include <fstream>
-#include "../include/nonlinear"
-#include "../include/intergration"
+#include "../include/nonlinear.h"
+#include "../include/integration.h"
 
 using namespace std;
 
