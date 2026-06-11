@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Pliki zasobów">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="tests">
+      <UniqueIdentifier>{1bb0d4d6-9cc0-404e-b03a-c49f8abe94d5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="src">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="examples">
+      <UniqueIdentifier>{1b9b8df5-4c6f-4fd6-ac07-3179b6eaad5d}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="linear_systems.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="interpolation.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="approximation.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="integration.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="ode.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="nonlinear.h">
+      <Filter>include</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="linear_systems.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="interpolation.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="approximation.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="integration.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="ode.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="nonlinear.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="test_linear_systems.cpp">
+      <Filter>tests</Filter>
+    </ClCompile>
+    <ClCompile Include="test_interpolation.cpp">
+      <Filter>tests</Filter>
+    </ClCompile>
+    <ClCompile Include="test_approximation.cpp">
+      <Filter>tests</Filter>
+    </ClCompile>
+    <ClCompile Include="test_intergration.cpp">
+      <Filter>tests</Filter>
+    </ClCompile>
+    <ClCompile Include="test_nonlinear.cpp">
+      <Filter>tests</Filter>
+    </ClCompile>
+    <ClCompile Include="test_ode.cpp">
+      <Filter>tests</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
