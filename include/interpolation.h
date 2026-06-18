@@ -1,9 +1,9 @@
 #pragma once
 /**
  * @file interpolation.h
- * @brief Polynomial interpolation: Lagrange and Newton (divided differences)
+ * @brief Interpolacja wielomianowa: metoda Lagrange'a i Newtona (różnice dzielone)
  *
- * Example:
+ * Przykład:
  *   vector<double> xs = {0, 1, 2};
  *   vector<double> ys = {1, 3, 7};
  *   double val = lagrange_interpolate(1.5, xs, ys);
@@ -13,43 +13,43 @@
 using std::vector;
 
 /**
- * @brief Evaluate Lagrange interpolating polynomial at point x
- * @param x  Point at which to evaluate
- * @param xs Interpolation nodes (x-coordinates)
- * @param ys Function values at nodes (y-coordinates)
- * @return Interpolated value L(x)
+ * @brief Oblicza wartość wielomianu interpolacyjnego Lagrange'a w punkcie x
+ * @param x  Punkt, w którym obliczana jest wartość
+ * @param xs Węzły interpolacji (współrzędne x)
+ * @param ys Wartości funkcji w węzłach (współrzędne y)
+ * @return Wartość interpolowana L(x)
  */
 double lagrange_interpolate(double x,
     const vector<double>& xs,
     const vector<double>& ys);
 
 /**
- * @brief Build Newton divided-difference table
- * @param xs Interpolation nodes
- * @param ys Function values at nodes
- * @return 2D table f[i][j] of divided differences
+ * @brief Buduje tablicę różnic dzielonych Newtona
+ * @param xs Węzły interpolacji
+ * @param ys Wartości funkcji w węzłach
+ * @return Dwuwymiarowa tablica f[i][j] różnic dzielonych
  */
 vector<vector<double>> newton_divided_differences(const vector<double>& xs,
     const vector<double>& ys);
 
 /**
- * @brief Evaluate Newton interpolating polynomial using precomputed table
- * @param x  Point at which to evaluate
- * @param xs Interpolation nodes
- * @param dd Divided-difference table from newton_divided_differences()
- * @return Interpolated value N(x)
+ * @brief Oblicza wartość wielomianu interpolacyjnego Newtona przy użyciu gotowej tablicy
+ * @param x  Punkt, w którym obliczana jest wartość
+ * @param xs Węzły interpolacji
+ * @param dd Tablica różnic dzielonych z newton_divided_differences()
+ * @return Wartość interpolowana N(x)
  */
 double newton_interpolate(double x,
     const vector<double>& xs,
     const vector<vector<double>>& dd);
 
 /**
- * @brief Compute mean-squared error of interpolation over all given data points
- * @param xs_all All x data points
- * @param ys_all Corresponding function values
- * @param xs_nodes Chosen interpolation nodes (subset)
- * @param ys_nodes Function values at nodes
- * @return MSE value
+ * @brief Oblicza średni błąd kwadratowy interpolacji dla wszystkich punktów danych
+ * @param xs_all Wszystkie punkty x
+ * @param ys_all Odpowiadające wartości funkcji
+ * @param xs_nodes Wybrane węzły interpolacji (podzbiór)
+ * @param ys_nodes Wartości funkcji w węzłach
+ * @return Wartość MSE
  */
 double interpolation_mse(const vector<double>& xs_all,
     const vector<double>& ys_all,
@@ -57,13 +57,13 @@ double interpolation_mse(const vector<double>& xs_all,
     const vector<double>& ys_nodes);
 
 /**
- * @brief Evaluate polynomial in natural form using Horner's scheme
- * @param a  Coefficients a[0] + a[1]*x + ... + a[n]*x^n
- * @param x  Evaluation point
- * @return   Polynomial value
+ * @brief Oblicza wartość wielomianu w postaci naturalnej schematem Hornera
+ * @param a  Współczynniki a[0] + a[1]*x + ... + a[n]*x^n
+ * @param x  Punkt obliczenia
+ * @return   Wartość wielomianu
  *
- * Example:
+ * Przykład:
  *   vector<double> a = {1, 0, 1}; // 1 + x^2
- *   double v = horner_eval(a, 3.0); // returns 10.0
+ *   double v = horner_eval(a, 3.0); // zwraca 10.0
  */
 double horner_eval(const vector<double>& a, double x);

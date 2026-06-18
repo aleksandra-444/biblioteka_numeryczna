@@ -20,7 +20,7 @@ foreach(TEST approximation intergration interpolation linear_systems nonlinear o
     target_link_libraries(test_${TEST} numeryczna)
 endforeach()
 
-foreach(EXAMPLE cooling roots_and_integrals)
+foreach(EXAMPLE cooling roots_and_integrals interpolation)
     add_executable(example_${EXAMPLE} examples/example_${EXAMPLE}.cpp)
     target_link_libraries(example_${EXAMPLE} numeryczna)
 endforeach()

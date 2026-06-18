@@ -1,10 +1,10 @@
-﻿#include "integration.h"
+#include "integration.h"
 #include <vector>
 #include <stdexcept>
 using std::vector;
 using std::function;
 
-// ── Trapezoidal rule ───────────────────────────────────────────────────────
+// ── Reguła trapezów ───────────────────────────────────────────────────────
 double trapezoidal(function<double(double)> f, double a, double b, int m)
 {
     double h = (b - a) / m;
@@ -13,10 +13,10 @@ double trapezoidal(function<double(double)> f, double a, double b, int m)
     return s * h;
 }
 
-// ── Simpson's rule ─────────────────────────────────────────────────────────
+// ── Reguła Simpsona ───────────────────────────────────────────────────────
 double simpson(function<double(double)> f, double a, double b, int m)
 {
-    if (m % 2 != 0) ++m; // enforce even
+    if (m % 2 != 0) ++m; // wymuszenie parzystości
     double h = (b - a) / m;
     double s = f(a) + f(b);
     for (int i = 1; i < m; ++i)
@@ -24,7 +24,7 @@ double simpson(function<double(double)> f, double a, double b, int m)
     return (h / 3.0) * s;
 }
 
-// ── Gauss-Legendre nodes & weights (reference interval [-1,1]) ─────────────
+// ── Węzły i wagi Gaussa-Legendre'a (przedział referencyjny [-1,1]) ────────
 static void gauss_nodes_weights(int n, vector<double>& xi, vector<double>& wi)
 {
     if (n == 2) {
@@ -50,7 +50,7 @@ static void gauss_nodes_weights(int n, vector<double>& xi, vector<double>& wi)
     }
 }
 
-// ── Single-interval Gauss-Legendre ────────────────────────────────────────
+// ── Kwadratura Gaussa-Legendre'a na pojedynczym przedziale ────────────────
 double gauss_legendre(function<double(double)> f, double a, double b, int n_nodes)
 {
     vector<double> xi, wi;
@@ -63,7 +63,7 @@ double gauss_legendre(function<double(double)> f, double a, double b, int n_node
     return half * s;
 }
 
-// ── Composite Gauss-Legendre ──────────────────────────────────────────────
+// ── Złożona kwadratura Gaussa-Legendre'a ──────────────────────────────────
 double gauss_legendre_composite(function<double(double)> f,
     double a, double b, int m, int n_nodes)
 {

@@ -1,51 +1,51 @@
 #pragma once
 /**
  * @file nonlinear.h
- * @brief Root-finding methods: Bisection, Regula Falsi, Newton, Secant
+ * @brief Metody znajdowania pierwiastków: Bisekcja, Regula Falsi, Newton, Sieczna
  *
- * Example:
+ * Przykład:
  *   auto f  = [](double x){ return x*x - 2.0; };
  *   auto df = [](double x){ return 2.0*x; };
- *   double root = newton_method(f, df, 2.0); // approx sqrt(2)
+ *   double root = newton_method(f, df, 2.0); // przybliżenie sqrt(2)
  */
 
 #include <functional>
 using std::function;
 
-/** Maximum number of iterations used by all methods */
+/** Maksymalna liczba iteracji używana przez wszystkie metody */
 static const int NL_MAX_ITER = 150;
-/** Default convergence tolerance */
+/** Domyślna tolerancja zbieżności */
 static const double NL_EPS = 1e-9;
 
 /**
- * @brief Bisection method
- * @param f  Continuous function with sign change on [a, b]
- * @param a  Left bracket
- * @param b  Right bracket
- * @param eps Convergence tolerance (default NL_EPS)
- * @return Approximate root
+ * @brief Metoda bisekcji
+ * @param f  Ciągła funkcja ze zmianą znaku na [a, b]
+ * @param a  Lewa granica przedziału
+ * @param b  Prawa granica przedziału
+ * @param eps Tolerancja zbieżności (domyślnie NL_EPS)
+ * @return Przybliżony pierwiastek
  */
 double bisection(function<double(double)> f, double a, double b,
     double eps = NL_EPS);
 
 /**
- * @brief Regula Falsi (False Position) method
- * @param f  Continuous function with sign change on [a, b]
- * @param a  Left bracket
- * @param b  Right bracket
- * @param eps Convergence tolerance
- * @return Approximate root
+ * @brief Metoda Regula Falsi (fałszywego położenia)
+ * @param f  Ciągła funkcja ze zmianą znaku na [a, b]
+ * @param a  Lewa granica przedziału
+ * @param b  Prawa granica przedziału
+ * @param eps Tolerancja zbieżności
+ * @return Przybliżony pierwiastek
  */
 double regula_falsi(function<double(double)> f, double a, double b,
     double eps = NL_EPS);
 
 /**
- * @brief Newton-Raphson method with analytical derivative
- * @param f   Function
- * @param df  Derivative of f
- * @param x0  Initial guess
- * @param eps Convergence tolerance
- * @return Approximate root
+ * @brief Metoda Newtona-Raphsona z analityczną pochodną
+ * @param f   Funkcja
+ * @param df  Pochodna funkcji f
+ * @param x0  Punkt startowy
+ * @param eps Tolerancja zbieżności
+ * @return Przybliżony pierwiastek
  */
 double newton_method(function<double(double)> f,
     function<double(double)> df,
@@ -53,35 +53,35 @@ double newton_method(function<double(double)> f,
     double eps = NL_EPS);
 
 /**
- * @brief Newton-Raphson method with numerical derivative (central differences)
- * @param f   Function
- * @param x0  Initial guess
- * @param eps Convergence tolerance
- * @param h   Step for numerical differentiation (default 1e-5)
- * @return Approximate root
+ * @brief Metoda Newtona-Raphsona z numeryczną pochodną (różnice centralne)
+ * @param f   Funkcja
+ * @param x0  Punkt startowy
+ * @param eps Tolerancja zbieżności
+ * @param h   Krok różniczkowania numerycznego (domyślnie 1e-5)
+ * @return Przybliżony pierwiastek
  */
 double newton_numeric(function<double(double)> f, double x0,
     double eps = NL_EPS, double h = 1e-5);
 
 /**
- * @brief Secant method
- * @param f   Function
- * @param x0  First initial guess
- * @param x1  Second initial guess
- * @param eps Convergence tolerance
- * @return Approximate root
+ * @brief Metoda siecznych
+ * @param f   Funkcja
+ * @param x0  Pierwsze przybliżenie
+ * @param x1  Drugie przybliżenie
+ * @param eps Tolerancja zbieżności
+ * @return Przybliżony pierwiastek
  */
 double secant_method(function<double(double)> f, double x0, double x1,
     double eps = NL_EPS);
 
 /**
- * @brief Count iterations used by bisection to reach tolerance eps
+ * @brief Zlicza iteracje bisekcji potrzebne do osiągnięcia tolerancji eps
  */
 int bisection_iterations(function<double(double)> f, double a, double b,
     double eps = NL_EPS);
 
 /**
- * @brief Count iterations used by Newton method to reach tolerance eps
+ * @brief Zlicza iteracje metody Newtona potrzebne do osiągnięcia tolerancji eps
  */
 int newton_iterations(function<double(double)> f,
     function<double(double)> df,

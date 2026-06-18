@@ -1,12 +1,12 @@
 #pragma once
 /**
  * @file linear_systems.h
- * @brief Solving systems of linear equations: LU decomposition, Gaussian elimination
+ * @brief Rozwiązywanie układów równań liniowych: dekompozycja LU, eliminacja Gaussa
  *
- * Provides LU decomposition (Doolittle), forward/backward substitution,
- * and Gaussian elimination with partial pivoting.
+ * Udostępnia dekompozycję LU (Doolittle), podstawianie wprzód/wstecz
+ * oraz eliminację Gaussa z częściowym wyborem elementu głównego.
  *
- * Example:
+ * Przykład:
  *   vector<vector<double>> A = {{2,1},{5,3}};
  *   vector<double> b = {8, 19};
  *   auto x = gauss_solve(A, b);
@@ -19,11 +19,11 @@ using std::vector;
 using std::string;
 
 /**
- * @brief LU decomposition (Doolittle method, no pivoting)
- * @param A Input square matrix (n x n)
- * @param L Output lower triangular matrix (L[i][i] = 1)
- * @param U Output upper triangular matrix
- * @param n Matrix size
+ * @brief Dekompozycja LU (metoda Doolittlea, bez wyboru elementu głównego)
+ * @param A Wejściowa macierz kwadratowa (n x n)
+ * @param L Wyjściowa macierz dolnotrójkątna (L[i][i] = 1)
+ * @param U Wyjściowa macierz górnotrójkątna
+ * @param n Rozmiar macierzy
  */
 void lu_decompose(const vector<vector<double>>& A,
     vector<vector<double>>& L,
@@ -31,60 +31,60 @@ void lu_decompose(const vector<vector<double>>& A,
     int n);
 
 /**
- * @brief Forward substitution: solve Lz = b
- * @param L Lower triangular matrix
- * @param b Right-hand side vector
- * @param n System size
- * @return Solution vector z
+ * @brief Podstawianie wprzód: rozwiązuje Lz = b
+ * @param L Macierz dolnotrójkątna
+ * @param b Wektor prawej strony
+ * @param n Rozmiar układu
+ * @return Wektor rozwiązania z
  */
 vector<double> forward_substitution(const vector<vector<double>>& L,
     const vector<double>& b,
     int n);
 
 /**
- * @brief Backward substitution: solve Ux = z
- * @param U Upper triangular matrix
- * @param z Right-hand side vector
- * @param n System size
- * @return Solution vector x
+ * @brief Podstawianie wstecz: rozwiązuje Ux = z
+ * @param U Macierz górnotrójkątna
+ * @param z Wektor prawej strony
+ * @param n Rozmiar układu
+ * @return Wektor rozwiązania x
  */
 vector<double> backward_substitution(const vector<vector<double>>& U,
     const vector<double>& z,
     int n);
 
 /**
- * @brief Solve Ax = b using LU decomposition
- * @param A Square matrix (n x n)
- * @param b Right-hand side vector
- * @return Solution vector x
+ * @brief Rozwiązuje Ax = b za pomocą dekompozycji LU
+ * @param A Macierz kwadratowa (n x n)
+ * @param b Wektor prawej strony
+ * @return Wektor rozwiązania x
  */
 vector<double> lu_solve(const vector<vector<double>>& A,
     const vector<double>& b);
 
 /**
- * @brief Gaussian elimination with partial pivoting
- * @param A Square matrix (n x n), will NOT be modified (copy used internally)
- * @param b Right-hand side vector
- * @return Solution vector x
+ * @brief Eliminacja Gaussa z częściowym wyborem elementu głównego
+ * @param A Macierz kwadratowa (n x n), NIE jest modyfikowana (używana jest kopia)
+ * @param b Wektor prawej strony
+ * @return Wektor rozwiązania x
  */
 vector<double> gauss_solve(vector<vector<double>> A, vector<double> b);
 
 /**
- * @brief Analyse a linear system for consistency and uniqueness
- * @param A Coefficient matrix
- * @param b Right-hand side vector
- * @param n System size
- * @return "OZNACZONY", "NIEOZNACZONY", or "SPRZECZNY"
+ * @brief Analizuje układ równań liniowych pod kątem spójności i jednoznaczności
+ * @param A Macierz współczynników
+ * @param b Wektor prawej strony
+ * @param n Rozmiar układu
+ * @return "OZNACZONY", "NIEOZNACZONY" lub "SPRZECZNY"
  */
 string analyze_system(vector<vector<double>> A, vector<double> b, int n);
 
 /**
- * @brief Compute residual norm ||Ax - b||_2
- * @param A Coefficient matrix
- * @param x Solution vector
- * @param b Right-hand side vector
- * @param n System size
- * @return Euclidean norm of the residual
+ * @brief Oblicza normę residuum ||Ax - b||_2
+ * @param A Macierz współczynników
+ * @param x Wektor rozwiązania
+ * @param b Wektor prawej strony
+ * @param n Rozmiar układu
+ * @return Norma euklidesowa residuum
  */
 double residual_norm(const vector<vector<double>>& A,
     const vector<double>& x,

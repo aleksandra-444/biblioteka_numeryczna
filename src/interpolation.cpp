@@ -1,8 +1,8 @@
-﻿#include "interpolation.h"
+#include "interpolation.h"
 #include <cmath>
 using std::vector;
 
-// ── Lagrange interpolation ─────────────────────────────────────────────────
+// ── Interpolacja Lagrange'a ────────────────────────────────────────────────
 double lagrange_interpolate(double x, const vector<double>& xs, const vector<double>& ys)
 {
     int n = (int)xs.size();
@@ -17,7 +17,7 @@ double lagrange_interpolate(double x, const vector<double>& xs, const vector<dou
     return result;
 }
 
-// ── Newton divided differences ─────────────────────────────────────────────
+// ── Różnice dzielone Newtona ───────────────────────────────────────────────
 vector<vector<double>> newton_divided_differences(const vector<double>& xs,
     const vector<double>& ys)
 {
@@ -30,7 +30,7 @@ vector<vector<double>> newton_divided_differences(const vector<double>& xs,
     return f;
 }
 
-// ── Newton interpolation evaluation ───────────────────────────────────────
+// ── Obliczanie wartości wielomianu interpolacyjnego Newtona ───────────────
 double newton_interpolate(double x, const vector<double>& xs,
     const vector<vector<double>>& dd)
 {
@@ -41,7 +41,7 @@ double newton_interpolate(double x, const vector<double>& xs,
     return result;
 }
 
-// ── Interpolation MSE ──────────────────────────────────────────────────────
+// ── Średni błąd kwadratowy interpolacji ───────────────────────────────────
 double interpolation_mse(const vector<double>& xs_all, const vector<double>& ys_all,
     const vector<double>& xs_nodes, const vector<double>& ys_nodes)
 {
@@ -56,7 +56,7 @@ double interpolation_mse(const vector<double>& xs_all, const vector<double>& ys_
     return sum / N;
 }
 
-// ── Horner evaluation ──────────────────────────────────────────────────────
+// ── Schemat Hornera ────────────────────────────────────────────────────────
 double horner_eval(const vector<double>& a, double x)
 {
     int n = (int)a.size() - 1;

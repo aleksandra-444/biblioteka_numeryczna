@@ -1,13 +1,13 @@
-﻿#include "../include/approximation.h"
-#include "../include/linear_systems.h"   // for gauss_solve
+#include "../include/approximation.h"
+#include "../include/linear_systems.h"   // dla gauss_solve
 #include <cmath>
 using std::vector;
 using std::function;
 
-// basis: phi_i(x) = x^i
+// baza: phi_i(x) = x^i
 static double phi(int i, double x) { return std::pow(x, i); }
 
-// Simpson integration helper (always uses even number of steps)
+// Pomocnicza całka Simpsona (zawsze używa parzystej liczby kroków)
 static double simps_int(function<double(double)> g, double a, double b, int n)
 {
     if (n % 2 != 0) ++n;
@@ -18,7 +18,7 @@ static double simps_int(function<double(double)> g, double a, double b, int n)
     return (h / 3.0) * s;
 }
 
-// ── Build and solve normal equations ─────────────────────────────────────
+// ── Budowanie i rozwiązywanie równań normalnych ───────────────────────────
 vector<double> least_squares_poly(function<double(double)> f,
     double a, double b, int degree, int n_int)
 {
@@ -36,7 +36,7 @@ vector<double> least_squares_poly(function<double(double)> f,
     return gauss_solve(A, B);
 }
 
-// ── Evaluate approximating polynomial ─────────────────────────────────────
+// ── Obliczanie wartości wielomianu aproksymującego ────────────────────────
 double eval_approx(const vector<double>& coeffs, double x)
 {
     double result = 0.0;
@@ -45,7 +45,7 @@ double eval_approx(const vector<double>& coeffs, double x)
     return result;
 }
 
-// ── MSE (integrated squared error) ────────────────────────────────────────
+// ── MSE (scałkowany błąd kwadratowy) ─────────────────────────────────────
 double approx_mse(function<double(double)> f, const vector<double>& coeffs,
     double a, double b, int steps)
 {
@@ -60,7 +60,7 @@ double approx_mse(function<double(double)> f, const vector<double>& coeffs,
     return (dx / 3.0) * Hn;
 }
 
-// ── Max absolute error ─────────────────────────────────────────────────────
+// ── Maksymalny błąd bezwzględny ───────────────────────────────────────────
 double approx_max_error(function<double(double)> f, const vector<double>& coeffs,
     double a, double b, int steps)
 {

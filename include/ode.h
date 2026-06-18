@@ -1,15 +1,15 @@
 #pragma once
 /**
  * @file ode.h
- * @brief Numerical ODE solvers: Euler, Heun, Midpoint, Runge-Kutta 4
+ * @brief Numeryczne metody całkowania równań różniczkowych: Euler, Heun, Punkt środkowy, RK4
  *
- * All solvers advance a scalar ODE  dT/dt = f(T, t)  from t=0 to t=t_end
- * using N equal steps and return the final value.
+ * Wszystkie solvery całkują skalarne RRZ  dy/dt = f(y, t)  od t=0 do t=t_end
+ * używając N równych kroków i zwracają wartość końcową.
  *
- * Example:
- *   // Cooling law: dT/dt = -alpha*(T^4 - beta)
+ * Przykład:
+ *   // Prawo stygnięcia: dT/dt = -alpha*T^4
  *   auto f = [](double T, double t){ return -3e-12 * (T * T * T * T); };
- *double T_end = euler_step_n(f, 5903.0, 5903.0, 10000);
+ *   double T_end = euler_solve(f, 5903.0, 5903.0, 10000);
  */
 
 #include <functional>
@@ -17,61 +17,61 @@
      using std::function;
  using std::vector;
 
- /** Right-hand side type: f(y, t) */
+ /** Typ prawej strony równania: f(y, t) */
  using RHS = function<double(double, double)>;
 
  /**
-  * @brief Single Euler step
-  * @param f  RHS function f(y, t)
-  * @param y  Current value
-  * @param t  Current time
-  * @param h  Step size
-  * @return   y at t+h
+  * @brief Pojedynczy krok metody Eulera
+  * @param f  Funkcja prawej strony f(y, t)
+  * @param y  Aktualna wartość
+  * @param t  Aktualny czas
+  * @param h  Rozmiar kroku
+  * @return   y w chwili t+h
   */
  double euler_step(RHS f, double y, double t, double h);
 
  /**
-  * @brief Single Heun (improved Euler / RK2) step
+  * @brief Pojedynczy krok metody Heuna (ulepszony Euler / RK2)
   */
  double heun_step(RHS f, double y, double t, double h);
 
  /**
-  * @brief Single Midpoint method step
+  * @brief Pojedynczy krok metody punktu środkowego
   */
  double midpoint_step(RHS f, double y, double t, double h);
 
  /**
-  * @brief Single classical RK4 step
+  * @brief Pojedynczy krok klasycznej metody RK4
   */
  double rk4_step(RHS f, double y, double t, double h);
 
  /**
-  * @brief Integrate ODE with Euler method over N steps
-  * @param f      RHS function
-  * @param y0     Initial value
-  * @param t_end  End time (start time = 0)
-  * @param N      Number of steps
-  * @return Final value y(t_end)
+  * @brief Całkuje RRZ metodą Eulera przez N kroków
+  * @param f      Funkcja prawej strony
+  * @param y0     Wartość początkowa
+  * @param t_end  Czas końcowy (czas startowy = 0)
+  * @param N      Liczba kroków
+  * @return Wartość końcowa y(t_end)
   */
  double euler_solve(RHS f, double y0, double t_end, int N);
 
- /** @brief Integrate ODE with Heun method */
+ /** @brief Całkuje RRZ metodą Heuna */
  double heun_solve(RHS f, double y0, double t_end, int N);
 
- /** @brief Integrate ODE with Midpoint method */
+ /** @brief Całkuje RRZ metodą punktu środkowego */
  double midpoint_solve(RHS f, double y0, double t_end, int N);
 
- /** @brief Integrate ODE with RK4 method */
+ /** @brief Całkuje RRZ metodą RK4 */
  double rk4_solve(RHS f, double y0, double t_end, int N);
 
  /**
-  * @brief Compute MSE between numerical solution and exact solution over N+1 points
-  * @param f       RHS of ODE
-  * @param exact   Exact solution exact(t)
-  * @param y0      Initial value
-  * @param t_end   End time
-  * @param N       Number of steps
-  * @param method  0=Euler, 1=Heun, 2=Midpoint, 3=RK4
+  * @brief Oblicza MSE między rozwiązaniem numerycznym a dokładnym w N+1 punktach
+  * @param f       Prawa strona RRZ
+  * @param exact   Rozwiązanie dokładne exact(t)
+  * @param y0      Wartość początkowa
+  * @param t_end   Czas końcowy
+  * @param N       Liczba kroków
+  * @param method  0=Euler, 1=Heun, 2=Punkt środkowy, 3=RK4
   * @return MSE
   */
  double ode_mse(RHS f,

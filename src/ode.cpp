@@ -1,9 +1,9 @@
-﻿#include "ode.h"
+#include "ode.h"
 #include <cmath>
 #include <stdexcept>
 using std::function;
 
-// ── Single steps ──────────────────────────────────────────────────────────
+// ── Pojedyncze kroki ──────────────────────────────────────────────────────
 double euler_step(RHS f, double y, double t, double h)
 {
     return y + h * f(y, t);
@@ -31,7 +31,7 @@ double rk4_step(RHS f, double y, double t, double h)
     return y + (1.0 / 6.0) * (k1 + 2.0 * k2 + 2.0 * k3 + k4);
 }
 
-// ── Full solvers ──────────────────────────────────────────────────────────
+// ── Pełne solvery ─────────────────────────────────────────────────────────
 static double solve_generic(RHS f, double y0, double t_end, int N,
     int method)
 {
@@ -55,7 +55,7 @@ double heun_solve(RHS f, double y0, double t_end, int N) { return solve_generic(
 double midpoint_solve(RHS f, double y0, double t_end, int N) { return solve_generic(f, y0, t_end, N, 2); }
 double rk4_solve(RHS f, double y0, double t_end, int N) { return solve_generic(f, y0, t_end, N, 3); }
 
-// ── MSE over trajectory ───────────────────────────────────────────────────
+// ── MSE wzdłuż trajektorii ────────────────────────────────────────────────
 double ode_mse(RHS f, function<double(double)> exact,
     double y0, double t_end, int N, int method)
 {

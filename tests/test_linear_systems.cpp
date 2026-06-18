@@ -1,11 +1,11 @@
 /**
  * @file test_linear_systems.cpp
- * @brief Unit tests for linear_systems module
+ * @brief Testy jednostkowe moduÅ‚u ukÅ‚adÃ³w rÃ³wnaÅ„ liniowych
  *
- * Each TEST checks a specific function with at least 2 cases
- * (correct input + edge/error case).
- * Build:  g++ -std=c++17 -I../include test_linear_systems.cpp ../src/linear_systems.cpp -o test_lin
- * Run:    ./test_lin
+ * KaÅ¼dy TEST sprawdza konkretnÄ… funkcjÄ™ co najmniej w 2 przypadkach
+ * (poprawne dane wejÅ›ciowe + przypadek brzegowy/bÅ‚Ä…d).
+ * Kompilacja:  g++ -std=c++17 -I../include test_linear_systems.cpp ../src/linear_systems.cpp -o test_lin
+ * Uruchomienie:    ./test_lin
  */
 
 #include <iostream>
@@ -18,7 +18,7 @@ using namespace std;
 
 static int passed = 0, failed = 0;
 
-// ¦¦ Tiny assert helper ¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦
+// â”€â”€ Pomocnicza funkcja sprawdzajÄ…ca â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 static void check(bool cond, const string& name)
 {
     if (cond) { cout << "  [PASS] " << name << "\n"; ++passed; }
@@ -31,11 +31,11 @@ static bool near(double a, double b, double tol = 1e-7)
 }
 
 // =========================================================================
-// TEST 1: gauss_solve — 2x2 system with known solution
+// TEST 1: gauss_solve â€“ ukÅ‚ad 2x2 ze znanym rozwiÄ…zaniem
 // =========================================================================
 void test_gauss_2x2()
 {
-    cout << "\n[gauss_solve] 2x2 known system:\n";
+    cout << "\n[gauss_solve] znany uklad 2x2:\n";
     // 2x + y = 5
     // x + 3y = 10  =>  x=1, y=3
     vector<vector<double>> A = { {2, 1}, {1, 3} };
@@ -45,13 +45,13 @@ void test_gauss_2x2()
 }
 
 // =========================================================================
-// TEST 2: gauss_solve — 3x3 system
+// TEST 2: gauss_solve â€“ ukÅ‚ad 3x3
 // =========================================================================
 void test_gauss_3x3()
 {
-    cout << "\n[gauss_solve] 3x3 system:\n";
+    cout << "\n[gauss_solve] uklad 3x3:\n";
     // x + y + z = 6
-    // 2x + y + z = 8   =>  x=2, y=2, z=2 (LU and Gauss)
+    // 2x + y + z = 8   =>  x=2, y=2, z=2 (LU i Gauss)
     // x + 2y + 3z = 14
     vector<vector<double>> A = { {1,1,1},{1,2,1},{1,1,2} };
     vector<double> b = { 6, 8, 9 };
@@ -61,7 +61,7 @@ void test_gauss_3x3()
 }
 
 // =========================================================================
-// TEST 3: lu_solve — same 3x3 as above, using LU
+// TEST 3: lu_solve â€“ ten sam ukÅ‚ad 3x3 co wyÅ¼ej, przez LU
 // =========================================================================
 void test_lu_solve_3x3()
 {
@@ -70,15 +70,15 @@ void test_lu_solve_3x3()
     vector<double> b = { 6, 8, 9 };
     auto x = lu_solve(A, b);
     check(near(x[0], 1.0) && near(x[1], 2.0) && near(x[2], 3.0),
-        "lu_solve matches gauss_solve result");
+        "lu_solve zgodny z gauss_solve");
 }
 
 // =========================================================================
-// TEST 4: lu_solve — 4x4 diagonal matrix (trivially solvable)
+// TEST 4: lu_solve â€“ macierz diagonalna 4x4 (trywialnie rozwiÄ…zywalna)
 // =========================================================================
 void test_lu_diagonal()
 {
-    cout << "\n[lu_solve] 4x4 diagonal:\n";
+    cout << "\n[lu_solve] diagonalna 4x4:\n";
     vector<vector<double>> A = {
         {2,0,0,0},{0,3,0,0},{0,0,5,0},{0,0,0,7}
     };
@@ -89,7 +89,7 @@ void test_lu_diagonal()
 }
 
 // =========================================================================
-// TEST 5: LU decomposition — verify L*U == A
+// TEST 5: Dekompozycja LU â€“ weryfikacja L*U == A
 // =========================================================================
 void test_lu_decompose_verify()
 {
@@ -98,41 +98,41 @@ void test_lu_decompose_verify()
     vector<vector<double>> L, U;
     lu_decompose(A, L, U, 2);
 
-    // Compute L*U manually
+    // Oblicz L*U rÄ™cznie
     bool ok = true;
     for (int i = 0; i < 2; ++i)
         for (int j = 0; j < 2; ++j) {
             double s = L[i][0] * U[0][j] + L[i][1] * U[1][j];
             if (!near(s, A[i][j])) ok = false;
         }
-    check(ok, "L*U reconstructs A");
-    check(near(L[0][0], 1.0) && near(L[1][1], 1.0), "L has unit diagonal");
+    check(ok, "L*U odtwarza A");
+    check(near(L[0][0], 1.0) && near(L[1][1], 1.0), "L ma jedynki na diagonali");
 }
 
 // =========================================================================
-// TEST 6: analyze_system — definite / inconsistent / underdetermined
+// TEST 6: analyze_system â€“ oznaczony / sprzeczny / nieoznaczony
 // =========================================================================
 void test_analyze_system()
 {
     cout << "\n[analyze_system]:\n";
-    // Unique solution
+    // Jednoznaczne rozwiÄ…zanie
     vector<vector<double>> A1 = { {1,0},{0,1} };
     vector<double> b1 = { 1,2 };
-    check(analyze_system(A1, b1, 2) == "OZNACZONY", "Identity => OZNACZONY");
+    check(analyze_system(A1, b1, 2) == "OZNACZONY", "Identycznosc => OZNACZONY");
 
-    // Inconsistent
+    // Sprzeczny
     vector<vector<double>> A2 = { {1,1},{1,1} };
     vector<double> b2 = { 1, 2 };
-    check(analyze_system(A2, b2, 2) == "SPRZECZNY", "Parallel rows, diff RHS => SPRZECZNY");
+    check(analyze_system(A2, b2, 2) == "SPRZECZNY", "Rownolegle wiersze, rozne prawe strony => SPRZECZNY");
 
-    // Underdetermined
+    // Nieoznaczony
     vector<vector<double>> A3 = { {1,1},{1,1} };
     vector<double> b3 = { 2, 2 };
-    check(analyze_system(A3, b3, 2) == "NIEOZNACZONY", "Parallel rows, same RHS => NIEOZNACZONY");
+    check(analyze_system(A3, b3, 2) == "NIEOZNACZONY", "Rownolegle wiersze, te same prawe strony => NIEOZNACZONY");
 }
 
 // =========================================================================
-// TEST 7: residual_norm — should be near 0 for exact solution
+// TEST 7: residual_norm â€“ powinno byÄ‡ bliskie 0 dla dokÅ‚adnego rozwiÄ…zania
 // =========================================================================
 void test_residual_norm()
 {
@@ -141,19 +141,19 @@ void test_residual_norm()
     vector<double> b = { 5,10 };
     auto x = gauss_solve(A, b);
     double r = residual_norm(A, x, b, 2);
-    check(r < 1e-10, "residual near zero for exact solution");
+    check(r < 1e-10, "residuum bliskie zeru dla dokladnego rozwiazania");
 
-    // Perturb the solution
+    // Zaburz rozwiÄ…zanie
     x[0] += 1.0;
     double r2 = residual_norm(A, x, b, 2);
-    check(r2 > 0.5, "residual grows when solution is wrong");
+    check(r2 > 0.5, "residuum rosnie gdy rozwiazanie jest bledne");
 }
 
 // =========================================================================
 int main()
 {
     cout << "======================================\n";
-    cout << "  TESTS: linear_systems\n";
+    cout << "  TESTY: uklady rownan liniowych\n";
     cout << "======================================\n";
 
     test_gauss_2x2();
@@ -165,6 +165,6 @@ int main()
     test_residual_norm();
 
     cout << "\n--------------------------------------\n";
-    cout << "Results: " << passed << " passed, " << failed << " failed\n";
+    cout << "Wyniki: " << passed << " zaliczone, " << failed << " niezaliczone\n";
     return (failed == 0) ? 0 : 1;
 }

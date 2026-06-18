@@ -1,4 +1,4 @@
-﻿#include "linear_systems.h"
+#include "linear_systems.h"
 #include <cmath>
 #include <stdexcept>
 using std::vector;
@@ -6,7 +6,7 @@ using std::string;
 using std::swap;
 using std::fabs;
 
-// ── LU decomposition (Doolittle, no pivoting) ─────────────────────────────
+// ── Dekompozycja LU (Doolittle, bez wyboru elementu głównego) ─────────────
 void lu_decompose(const vector<vector<double>>& A,
     vector<vector<double>>& L,
     vector<vector<double>>& U,
@@ -17,15 +17,15 @@ void lu_decompose(const vector<vector<double>>& A,
     for (int i = 0; i < n; ++i) L[i][i] = 1.0;
 
     for (int k = 0; k < n; ++k) {
-        // Fill row k of U
+        // Wypełnij wiersz k macierzy U
         for (int j = k; j < n; ++j) {
             double s = 0.0;
             for (int p = 0; p < k; ++p) s += L[k][p] * U[p][j];
             U[k][j] = A[k][j] - s;
         }
-        if (fabs(U[k][k]) < 1e-12) U[k][k] = 1e-12; // guard
+        if (fabs(U[k][k]) < 1e-12) U[k][k] = 1e-12; // zabezpieczenie
 
-        // Fill column k of L
+        // Wypełnij kolumnę k macierzy L
         for (int i = k + 1; i < n; ++i) {
             double s = 0.0;
             for (int p = 0; p < k; ++p) s += L[i][p] * U[p][k];
@@ -34,7 +34,7 @@ void lu_decompose(const vector<vector<double>>& A,
     }
 }
 
-// ── Forward substitution  Lz = b ──────────────────────────────────────────
+// ── Podstawianie wprzód  Lz = b ───────────────────────────────────────────
 vector<double> forward_substitution(const vector<vector<double>>& L,
     const vector<double>& b, int n)
 {
@@ -47,7 +47,7 @@ vector<double> forward_substitution(const vector<vector<double>>& L,
     return z;
 }
 
-// ── Backward substitution  Ux = z ─────────────────────────────────────────
+// ── Podstawianie wstecz  Ux = z ───────────────────────────────────────────
 vector<double> backward_substitution(const vector<vector<double>>& U,
     const vector<double>& z, int n)
 {
@@ -62,7 +62,7 @@ vector<double> backward_substitution(const vector<vector<double>>& U,
     return x;
 }
 
-// ── Solve via LU ──────────────────────────────────────────────────────────
+// ── Rozwiązanie przez LU ──────────────────────────────────────────────────
 vector<double> lu_solve(const vector<vector<double>>& A, const vector<double>& b)
 {
     int n = (int)b.size();
@@ -72,26 +72,26 @@ vector<double> lu_solve(const vector<vector<double>>& A, const vector<double>& b
     return backward_substitution(U, z, n);
 }
 
-// ── Gaussian elimination with partial pivoting ────────────────────────────
+// ── Eliminacja Gaussa z częściowym wyborem elementu głównego ──────────────
 vector<double> gauss_solve(vector<vector<double>> A, vector<double> b)
 {
     int n = (int)b.size();
     for (int i = 0; i < n; ++i) {
-        // Find pivot
+        // Znajdź element główny
         int maxRow = i;
         for (int k = i + 1; k < n; ++k)
             if (fabs(A[k][i]) > fabs(A[maxRow][i])) maxRow = k;
         swap(A[i], A[maxRow]);
         swap(b[i], b[maxRow]);
         if (fabs(A[i][i]) < 1e-12) continue;
-        // Eliminate
+        // Eliminacja
         for (int k = i + 1; k < n; ++k) {
             double c = -A[k][i] / A[i][i];
             for (int j = i; j < n; ++j) A[k][j] += c * A[i][j];
             b[k] += c * b[i];
         }
     }
-    // Back-substitute
+    // Podstawianie wstecz
     vector<double> x(n, 0.0);
     for (int i = n - 1; i >= 0; --i) {
         if (fabs(A[i][i]) < 1e-12) continue;
@@ -101,10 +101,10 @@ vector<double> gauss_solve(vector<vector<double>> A, vector<double> b)
     return x;
 }
 
-// ── System analysis ───────────────────────────────────────────────────────
+// ── Analiza układu ────────────────────────────────────────────────────────
 string analyze_system(vector<vector<double>> A, vector<double> b, int n)
 {
-    // Build augmented matrix
+    // Zbuduj macierz rozszerzoną
     vector<vector<double>> M(n, vector<double>(n + 1));
     for (int i = 0; i < n; ++i) {
         for (int j = 0; j < n; ++j) M[i][j] = A[i][j];
@@ -136,7 +136,7 @@ string analyze_system(vector<vector<double>> A, vector<double> b, int n)
     return "OZNACZONY";
 }
 
-// ── Residual norm ─────────────────────────────────────────────────────────
+// ── Norma residuum ────────────────────────────────────────────────────────
 double residual_norm(const vector<vector<double>>& A,
     const vector<double>& x,
     const vector<double>& b, int n)
